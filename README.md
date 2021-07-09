@@ -119,3 +119,9 @@ def make_plots( df , col):
     plt.ylabel( 'Salaries' )
 
 
+After reviewing our assets, the feature 'Type' appears to be most correlated with our target.
+
+make_plots( train_df , 'Type' )
+
+
+http://localhost:8892/view/DSDJ/SalaryProject/Untitled%20Folder/Type.png
