@@ -28,7 +28,7 @@ salary                 1000000 non-null int64
 dtypes: int64(3), object(7)
 
 
-The following function returns descriptive statistics of the initial dataframe. Our target variable is 'Salary.'
+The following function returns descriptive statistics of a feature. Our target variable is 'Salary.'
 
 train_df.Salary.describe()
 
@@ -42,3 +42,16 @@ min            0.000000
 max          301.000000
 Name: Salary, dtype: float64
 
+
+Now let's look for correlation between features and the target
+
+
+The following function returns an array with each 'Type' of job description. Following the function is a dictionary created listing each unique job type's average salary. Finally the target's average is printed for comparison.
+
+np.unique(train_df.Type)
+
+array(['CEO', 'CFO', 'CTO', 'JANITOR', 'JUNIOR', 'MANAGER', 'SENIOR',
+       'VICE_PRESIDENT'], dtype=object)
+
+{'JANITOR': '$71,000', 'JUNIOR': '$95,000', 'SENIOR': '$105,000', 'MANAGER': '$115,000', 'VP': '$125,000', 'CTO': '$135,000', 'CFO': '$135,000', 'CEO': '$145,000'}
+Average target: '$116,000'       
