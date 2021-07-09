@@ -43,7 +43,7 @@ max          301.000000
 Name: Salary, dtype: float64
 
 
-Now let's look for correlation between features and the target
+Now let's look for correlation between features and the target. For now we are only interested in the type of job.
 
 
 The following function returns an array with each 'Type' of job description. Following the function is a dictionary created listing each unique job type's average salary. Finally the target's average is printed for comparison.
@@ -54,4 +54,68 @@ array(['CEO', 'CFO', 'CTO', 'JANITOR', 'JUNIOR', 'MANAGER', 'SENIOR',
        'VICE_PRESIDENT'], dtype=object)
 
 {'JANITOR': '$71,000', 'JUNIOR': '$95,000', 'SENIOR': '$105,000', 'MANAGER': '$115,000', 'VP': '$125,000', 'CTO': '$135,000', 'CFO': '$135,000', 'CEO': '$145,000'}
-Average target: '$116,000'       
+Average target: '$116,000'
+
+
+Now we can build some assets to gain insight.
+
+
+The following function is defined to return two visualizations. The first visualization plots the counts of the unique values or splits the unique values into groups in the dataframe for the selected feature. The second visualization groups the mean salary by the selected feature chosen or uses the wrangled dataframe from the previous visualization to accurately plot a box and whisker plot.
+
+def make_plots( df , col):
+    
+    plt.figure( figsize = ( 14 , 6 ) )
+    plt.subplot( 1 , 2 , 1 )
+    
+    #fill first plot
+    
+    if df[ col ].dtype == 'int64':
+        
+        #find count of all unique values in the index
+        #sort dataframe based on index lables
+        #plot feature
+        df[ col ].value_counts().sort_index().plot()
+        
+    else:
+        
+        #split data into group based on input parameter
+        #select columns included in new df
+        #find mean of each column index
+        mean = df.groupby( col )[ 'Salary' ].mean()
+        
+        #change objects to categorical features
+        df[ col ] = df[ col ].astype( 'category' )
+        
+        #find indeces of sorted values
+        sort_mean = mean.sort_values().index.tolist()
+        
+        #reorder categories per sorted indeces
+        df[ col ].cat.reorder_categories( sort_mean , inplace = True )
+        
+        df[ col ].value_counts().plot()
+        
+    plt.xticks( rotation = 45 )
+    plt.xlabel( col )
+    plt.ylabel( 'Counts' )
+    
+    #fill second plot 
+    
+    plt.subplot( 1 , 2 , 2 )
+    
+    if df[ col ].dtype == 'int64':
+        
+        #split data into group based on input parameter
+        #select columns included in new df
+        #find mean of each column index
+        mean = df.groupby( col )[ 'Salary' ].mean()
+        
+        mean.plot()
+    
+    else:
+        
+        sns.boxplot( x = col , y = 'Salary' , data = df)
+        
+    plt.xticks( rotation = 45 )
+    plt.ylabel( 'Salaries' )
+
+
