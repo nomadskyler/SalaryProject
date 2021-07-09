@@ -124,4 +124,4 @@ After reviewing our assets, the feature 'Type' appears to be most correlated wit
 make_plots( train_df , 'Type' )
 
 
-![alt text](http://localhost:8892/view/DSDJ/SalaryProject/Untitled%20Folder/Type.png)
+![Alt Text](https://github.com/nomadskyler/SalaryProject/blob/main/assets/Type.png?raw=true)
